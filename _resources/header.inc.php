@@ -2,6 +2,8 @@
 
 require_once((__DIR__)."/resources.inc.php");
 
+sec_session_start();
+
 // if filename contains ".ajax." or ".bounce.", 
 //   or $exclude_html = true; 
 // then don't print html header
@@ -29,7 +31,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
   <?php echo "
   
     <!-- favicon -->
-    <link rel='icon' href='$path_web_root/_resources/images/favicon.ico'></link>
+    <link rel='icon' href='$path_web_root/favicon.ico'></link>
   
     <!-- JQUERY -->
     <script src='$path_web_root/_resources/jquery/jquery.1.11.2.min.js'></script>
@@ -51,6 +53,20 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 
   ";?>
 
+  <?php
+    if ( !empty($include_chartist) ) {
+      echo "
+	<!-- CHARTIST -->
+	<script src='$path_web_root/_resources/chartist/chartist.0.9.4.min.js'></script>
+	<script src='$path_web_root/_resources/chartist/chartist-plugin-tooltip.js'></script>
+	<script src='$path_web_root/_resources/chartist/chartist-plugin-axistitle.min.js'></script>
+	<script src='$path_web_root/_resources/chartist/chartist.custom.js'></script>
+	<link rel='stylesheet' href='$path_web_root/_resources/chartist/chartist.min.css'></link>
+	<link rel='stylesheet' href='$path_web_root/_resources/chartist/chartist.custom.css'></link>
+      ";
+    }
+  ?>
+
 </head>
 <body>
 
@@ -70,14 +86,14 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 
 	  <!-- Side Nav Toggle -->
           <a id="sidenav-toggle" href="javascript:void(0);" onclick="$('#wrapper').toggleClass('toggled')">
-	    <img src="<?php echo $path_web_root;?>/_resources/images/favicon.ico"></img>
+	    <img src="<?php echo $path_web_root;?>/favicon.ico"></img>
           </a>
 
           <?php // #site_title_brand
 	    echo "<a id='site_title_brand' class='navbar-brand' href='$path_web_root/'>$site_title</a>"; 
           ?>
 
-        </div><!-- /.navbar-header -->
+       </div><!-- /.navbar-header -->
 
 	<div id="navbar" class="collapse navbar-collapse">
 
@@ -152,10 +168,6 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 		toggle.parent().children("ul").toggle("blind");
 	      }
 
-	      $(".top_nav").find("a").each(function(){
-		    if ( $(this).attr("href") == "<?php echo $_SERVER['SCRIPT_NAME'];?>" || $(this).attr("href") == "<?php echo dirname($_SERVER['SCRIPT_NAME'])."/";?>" )
-		      $(this).parent().addClass("active");
-	      });
 	      /*
 	      $("#current_navigation_menu").find("a").each(function(){
 		    if ( $(this).attr("href") == "<?php echo $_SERVER['SCRIPT_NAME'];?>" || $(this).attr("href") == "<?php echo dirname($_SERVER['SCRIPT_NAME'])."/";?>" )
@@ -180,7 +192,12 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 	      }
 	    </script>
         </div><!-- /#sidebar-wrapper -->
-
+<script>
+  $(".top_nav").find("a").each(function(){
+    if ( $(this).attr("href") == "<?php echo $_SERVER['SCRIPT_NAME'];?>" || $(this).attr("href") == "<?php echo dirname($_SERVER['SCRIPT_NAME'])."/";?>" )
+      $(this).parent().addClass("active");
+  });
+</script>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
