@@ -6,7 +6,14 @@ require_once('_resources/header.inc.php');
 
 echo "<h1>Responsive $section_title</h1>"; ?>
 
-<p class='lead'>Some excellent YouTube videos on web application development.</p>
+<p class='lead'>Some excellent videos on application development.</p>
+
+<div class='well'>
+<h2>16:9 aspect ratio</h2>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/119453133" allowfullscreen></iframe>
+</div>
+</div><!-- /.well -->
 
 <div class='well'>
 <h2>16:9 aspect ratio</h2>
