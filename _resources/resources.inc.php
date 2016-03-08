@@ -17,6 +17,10 @@ include_once((__DIR__) . '/credentials.inc.php');
 $login_page = "$path_web_root$login_page";
 
 // custom functions
+function valid_positive_integer($supposed_positive_integer){
+  return ( !empty($supposed_positive_integer) && is_numeric($supposed_positive_integer) && $supposed_positive_integer > 0 );
+}
+
 function mysqlo_prepare_input($text){
 
 	$text = htmlentities($text);
