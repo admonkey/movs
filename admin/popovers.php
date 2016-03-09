@@ -8,7 +8,7 @@ require_once("_resources/header.inc.php");
 <div class='well'>
   <a
     title=""
-    href="javascript://gsb-dev2.uark.edu"
+    href="javascript:void(0)"
     data-toggle="popover"
     data-trigger="focus"
     data-placement="right"
