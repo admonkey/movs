@@ -24,6 +24,7 @@ echo "<h1>$section_title</h1>"; ?>
       <li><a href='$path_web_root/Forms/'>Forms</a></li>
       <li><a href='$path_web_root/Tables/'>Tables</a></li>
       <li><a href='$path_web_root/FancyBox/'>FancyBox</a></li>
+      <li><a href='$path_web_root/admin/popovers.php'>Popovers</a></li>
       <li><a href='$path_web_root/Embed/'>Mobile Responsive Video Embed</a></li>
     </ul>
   </li>
