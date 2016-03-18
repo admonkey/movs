@@ -224,6 +224,7 @@ if $createSSL ; then
       SSLEngine on
       SSLCertificateFile $sslDirectory/$siteName.crt
       SSLCertificateKeyFile $sslDirectory/$siteName.key
+      #SSLCACertificateFile $sslDirectory/$siteName.chn
     </VirtualHost>
   </IfModule>
 	    
