@@ -96,7 +96,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
        </div><!-- /.navbar-header -->
 
 	<div id="navbar" class="collapse navbar-collapse">
-
+          <?php if(!$hide_top_nav) { ?>
 	    <ul id='top_navigation_menu' class='top_nav nav navbar-nav navigation-menu'>
 
 		<?php
@@ -146,7 +146,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 	      
 		</ul>
 	   </div>
-
+          <?php } // END if !$hide_top_nav ?>
 	</div><!--/#navbar.nav-collapse -->
 
       </div><!--/.container -->
