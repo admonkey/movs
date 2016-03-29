@@ -14,7 +14,8 @@ $path_web_root = str_replace($path_real_difference, '', $_SERVER['SCRIPT_NAME'])
 include_once((__DIR__) . '/credentials.inc.php');
 
 // login with full path
-$login_page = "$path_web_root$login_page";
+if(!empty($login_page))
+  $login_page = "$path_web_root$login_page";
 
 // custom functions
 function valid_positive_integer($supposed_positive_integer){

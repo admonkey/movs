@@ -140,7 +140,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 		      echo "<li id='my_profile'><a href='$path_web_root/Profiles/?user_id=$_SESSION[user_id]'>$_SESSION[username]</a></li>";
 		      echo "<li id='logout'><a href='?logout'>Logout</a></li>";
 		    }
-		    else
+		    else if (!empty($login_page))
 		      echo "<li id='login'><a href='$login_page'>Login</a></li>";
 		  ?>
 	      
