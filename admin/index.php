@@ -35,6 +35,7 @@ echo "<h1>$section_title</h1>"; ?>
       <li><a href='$path_web_root/admin/php.php'>PHP</a></li>
       <li><a href='$path_web_root/SubTree/'>git subtree</a></li>
     </ul>
+    <a target='_blank' href='http://www.dovetail.ie/blog/2015/should-you-use-angular2-in-production/#.Vw5wBGErJhE'><img class='img-responsive' src='$path_web_root/admin/_resources/images/which-js-framework.png'></img></a>
   </li>
 
 "; ?>
