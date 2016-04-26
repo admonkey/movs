@@ -40,7 +40,11 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
     <script src='$path_web_root/_resources/bootstrap/bootstrap.3.3.4.min.js'></script>
     <link rel='stylesheet' href='$path_web_root/_resources/bootstrap/bootstrap.3.3.4.min.css'></link>
     <link rel='stylesheet' href='$path_web_root/_resources/bootstrap/bootstrap.custom.css'></link>
-    <link rel='stylesheet' href='$path_web_root/_resources/bootstrap/sidenav.css'></link>
+    ";
+    if(empty($hide_side_nav)) {
+      echo "<link rel='stylesheet' href='$path_web_root/_resources/bootstrap/sidenav.css'></link>";
+    }
+    echo "
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
@@ -157,6 +161,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 	<div id="wrapper">
 
         <!-- Sidebar -->
+        <?php if(empty($hide_side_nav)) { ?>
         <div id="sidebar-wrapper">
             <ul id='current_navigation_menu' class="sidebar-nav navigation-menu">
                 <?php include("$path_real_root/SiteMap/navigation-menu.inc.php"); ?>
@@ -192,6 +197,7 @@ if ( ! ((strpos(basename($_SERVER["SCRIPT_NAME"]),'.ajax.') !== false) || (strpo
 	      }
 	    </script>
         </div><!-- /#sidebar-wrapper -->
+        <?php } // END if !$hide_side_nav ?>
 <script>
   $(".top_nav").find("a").each(function(){
     if ( $(this).attr("href") == "<?php echo $_SERVER['SCRIPT_NAME'];?>" || $(this).attr("href") == "<?php echo dirname($_SERVER['SCRIPT_NAME'])."/";?>" )

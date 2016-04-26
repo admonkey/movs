@@ -54,6 +54,7 @@ $site_title = "Web Site";
 $login_page = "/Login/";
 
 $hide_top_nav = false;
+$hide_side_nav = true;
 $show_admin_nav_menu = true;
 
 // global overrides
