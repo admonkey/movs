@@ -46,9 +46,9 @@ $site_title = "Web Site";
   // local
   $database_server = "localhost";
 
-  $database_username = "username";
+  $database_username = "movs_dev_user";
   $database_password = "p@55W0rd";
-  $database_name = "example_database";
+  $database_name = "movs_dev";
 
 // login url
 $login_page = "/Login/";

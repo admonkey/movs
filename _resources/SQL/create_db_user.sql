@@ -1,5 +1,5 @@
-CREATE DATABASE example_database;
+CREATE DATABASE movs_dev;
 
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'p@55W0rd';
+CREATE USER 'movs_dev_user'@'localhost' IDENTIFIED BY 'p@55W0rd';
 
-GRANT ALL PRIVILEGES ON example_database.* TO 'username'@'localhost';
+GRANT ALL PRIVILEGES ON movs_dev.* TO 'movs_dev_user'@'localhost';
