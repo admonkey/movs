@@ -31,6 +31,15 @@ Site for self-hosted movie collection.
     - admin
   - favorite home page
 
+## User Roles and Access
+1. general
+  - view unrestricted movies
+  - create user scores & user tags
+2. unrestricted
+  - view restricted movies
+3. admin
+  - create sources, movies, movie extras, tags, movie tags, roles, & user roles
+
 ## Requirements
 Might work elsewhere, but designed and tested on:  
 - Ubuntu 14.04  

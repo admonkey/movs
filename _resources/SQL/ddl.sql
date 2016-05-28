@@ -7,6 +7,22 @@ DROP TABLE IF EXISTS `Tags`;
 DROP TABLE IF EXISTS `Users`;
 DROP TABLE IF EXISTS `MovieXtras`;
 DROP TABLE IF EXISTS `Movies`;
+DROP TABLE IF EXISTS `Sources`;
+
+--
+-- Table structure for table `Sources`
+--
+CREATE TABLE `Sources` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `sourcename` varchar(255) NOT NULL,
+  `realsourcepath` varchar(255) NOT NULL,
+  `websourcepath` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `sourcename` (`sourcename`),
+  UNIQUE KEY `realsourcepath` (`realsourcepath`),
+  UNIQUE KEY `websourcepath` (`websourcepath`)
+  
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `Movies`
@@ -16,6 +32,7 @@ CREATE TABLE `Movies` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `fpath` varchar(255) NOT NULL,
+  `SourceID` int(11) NOT NULL,
   `extension` varchar(5) NOT NULL,
   `mimetype` varchar(50) DEFAULT NULL,
   `audioCodec` varchar(50) DEFAULT NULL,
@@ -34,8 +51,10 @@ CREATE TABLE `Movies` (
   `writer` text,
   `actors` text,
   PRIMARY KEY (`ID`),
+  KEY `SourceID` (`SourceID`),
   UNIQUE KEY `fpath` (`fpath`),
-  UNIQUE KEY `imdbid` (`imdbid`)
+  UNIQUE KEY `imdbid` (`imdbid`),
+  CONSTRAINT `SourceID-FK` FOREIGN KEY (`SourceID`) REFERENCES `Sources` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
 
 --
@@ -47,12 +66,14 @@ CREATE TABLE `MovieXtras` (
   `MovieID` int(11) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `fpath` varchar(255) NOT NULL,
+  `SourceID` int(11) NOT NULL,
   `extension` varchar(5) NOT NULL,
   `mimetype` varchar(50) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `MovieID` (`MovieID`),
-  CONSTRAINT `MovieIDx-FK` FOREIGN KEY (`MovieID`) REFERENCES `Movies` (`ID`)
+  CONSTRAINT `MovieIDx-FK` FOREIGN KEY (`MovieID`) REFERENCES `Movies` (`ID`),
+  CONSTRAINT `SourceIDx-FK` FOREIGN KEY (`SourceID`) REFERENCES `Sources` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
