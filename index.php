@@ -10,6 +10,8 @@ echo "
   <h1>Welcome to $site_title</h1>
 ";
 
+$theatre = new MoviesController();
+
 require_once('_resources/footer.inc.php');
 
 ?>

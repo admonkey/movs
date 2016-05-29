@@ -105,6 +105,14 @@ function sec_session_start() {
 // start session
 sec_session_start();
 
+define("DATABASE_SERVER", $database_server);
+define("DATABASE_USERNAME", $database_username);
+define("DATABASE_PASSWORD", $database_password);
+define("DATABASE_NAME", $database_name);
+
+require_once(__DIR__."/../movies.php");
+
+
 // MySQL
 if ( !empty($include_mysqli) ) {
 
