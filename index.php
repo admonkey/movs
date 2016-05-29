@@ -10,7 +10,17 @@ echo "
   <h1>Welcome to $site_title</h1>
 ";
 
+$_SESSION["ADMIN"] = true;
+
 $theatre = new MoviesController();
+
+$sourceData = array(
+  "sourcename" => "tmp",
+  "realsourcepath" => "/tmp",
+  "websourcepath" => "/tmpweb"
+);
+
+var_dump($theatre->createSource($sourceData));
 
 require_once('_resources/footer.inc.php');
 
