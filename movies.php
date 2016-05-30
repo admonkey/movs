@@ -1,7 +1,5 @@
 <?php
 
-require_once(__DIR__."/_resources/resources.inc.php");
-
 class MoviesController {
 
   private $authenticated;
@@ -78,23 +76,61 @@ class MoviesController {
       return false;
     }
 
+    $sql = "CALL insert_source (?,?,?)";
+
+    if (!($stmt = $this->database->prepare($sql))) {
+      trigger_error("Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_WARNING);
+      return false;
+    } else {
+
+      $stmt->bind_param('sss', $sourceData["sourcename"], $sourceData["realsourcepath"], $sourceData["websourcepath"]);
+      if (!$stmt->execute()) {
+        trigger_error("Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_WARNING);
+        return false;
+
+      } else {
+
+        $stmt->store_result();
+        $stmt->bind_result($response);
+        $stmt->fetch();
+        return $response;
+
+      }
+
+    }
+
+  }
+
+  // get source
+  public function getSource($sourceID) {
+
+    if (!$this->isPositiveNumber($sourceID)) return false;
+
     $sql = "
-      INSERT INTO `Sources` (
-        `sourcename`,
-        `realsourcepath`,
-        `websourcepath`
-      ) VALUES (?,?,?)
+      SELECT *
+      FROM `Sources`
+      WHERE `id` = ?
     ";
 
     if (!($stmt = $this->database->prepare($sql))) {
       trigger_error("Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_WARNING);
       return false;
     } else {
-      $stmt->bind_param('sss', $sourceData["sourcename"], $sourceData["websourcepath"], $sourceData["realsourcepath"]);
+
+      $stmt->bind_param('i', $sourceID);
       if (!$stmt->execute()) {
         trigger_error("Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_WARNING);
         return false;
-      } else return true;
+
+      } else {
+
+        $stmt->store_result();
+        $stmt->bind_result($response);
+        $stmt->fetch_array(MYSQLI_ASSOC);
+        return $response;
+
+      }
+
     }
 
   }
@@ -103,6 +139,16 @@ class MoviesController {
   public function scanSource($sourceID) {
 
     if (empty($_SESSION["ADMIN"])) return false;
+
+  }
+
+  //
+  // private utility functions
+  //
+
+  private function isPositiveNumber($num) {
+
+    return ( !empty($num) && is_numeric($num) && $num > 0 );
 
   }
 

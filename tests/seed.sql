@@ -1,0 +1,47 @@
+INSERT INTO `Movies`
+(
+  `fname`,
+  `fpath`,
+  `SourceID`,
+  `extension`,
+  `mimetype`,
+  `audioCodec`,
+  `videoCodec`,
+  `title`,
+  `imdbid`,
+  `plot`,
+  `runtime`,
+  `year`,
+  `released`,
+  `awards`,
+  `country`,
+  `language`,
+  `rated`,
+  `director`,
+  `writer`,
+  `actors`
+)
+VALUES (
+  'A.Beautiful.Mind.2001.480p.BluRay.x264-HaB.mkv',
+  'A.Beautiful.Mind.2001.480p.BluRay.x264-HaB.mkv',
+  1,
+  'mkv',
+  'video/x-matroska',
+  NULL,
+  NULL,
+  'A Beautiful Mind',
+  'tt0268978',
+  'After a brilliant but asocial mathematician accepts secret work in cryptography, his life takes a turn for the nightmarish.',
+  135,
+  2001,
+  '2002-01-04',
+  'Won 4 Oscars. Another 32 wins & 58 nominations.',
+  'USA',
+  'English',
+  'PG-13',
+  'Ron Howard',
+  'Akiva Goldsman, Sylvia Nasar (book)',
+  'Russell Crowe, Ed Harris, Jennifer Connelly, Christopher Plummer'
+)
+
+-- tags: 'Biography, Drama',

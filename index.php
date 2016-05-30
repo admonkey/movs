@@ -20,7 +20,12 @@ $sourceData = array(
   "websourcepath" => "/tmpweb"
 );
 
-var_dump($theatre->createSource($sourceData));
+//var_dump($theatre->createSource($sourceData));
+var_dump($theatre->getSource(131));
+
+// var_dump(bin2hex(openssl_random_pseudo_bytes(10)));
+
+
 
 require_once('_resources/footer.inc.php');
 

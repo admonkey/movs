@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# move to working directory
+cd $( dirname "${BASH_SOURCE[0]}" )
+
+# PHP Unit tests
+./vendor/bin/phpunit --bootstrap _resources/resources.inc.php tests
