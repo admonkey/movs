@@ -12,4 +12,4 @@ echo "...database created"
 
 # PHP Unit tests
 cd $start_dir
-./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php tests
+./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php --testdox tests
