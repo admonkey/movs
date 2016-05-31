@@ -13,6 +13,7 @@ genpasswd() {
 new_id="$(genpasswd 5)"
 new_username="movs_user_$new_id"
 new_password="$(genpasswd)"
+test_dbo_username=""
 
 # default to dev
 if [ -z "$1" ]; then
@@ -25,14 +26,13 @@ else
   if [ "$1" = "-test" ]; then
 
     new_db_name="movs_test_$new_id"
+    test_dbo_username="$new_username""_"
     sql_privileges="
-      GRANT CREATE ON $new_db_name.* TO '$new_username'@'$database_server';
-      GRANT REFERENCES ON $new_db_name.* TO '$new_username'@'$database_server';
-      GRANT DROP ON $new_db_name.* TO '$new_username'@'$database_server';
-      GRANT CREATE ROUTINE ON $new_db_name.* TO '$new_username'@'$database_server';
-      GRANT ALTER ROUTINE ON $new_db_name.* TO '$new_username'@'$database_server';
+      CREATE USER '$test_dbo_username'@'$database_server' IDENTIFIED BY '$new_password';
+      GRANT ALL PRIVILEGES ON $new_db_name.* TO '$test_dbo_username'@'$database_server';
       GRANT EXECUTE ON $new_db_name.* TO '$new_username'@'$database_server';
     "
+    test_dbo_username="database_user=\"$test_dbo_username\";"
 
   fi
 
@@ -69,7 +69,7 @@ database_server="$database_server"
 database_user="$new_username"
 database_password="$new_password"
 database_name="$new_db_name"
-
+$test_dbo_username
 include_fake_data=false
 
 EOF

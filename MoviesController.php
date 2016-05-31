@@ -90,9 +90,9 @@ class MoviesController {
 
       } else {
 
-        $stmt->store_result();
         $stmt->bind_result($response);
         $stmt->fetch();
+        $stmt->close();
         return $response;
 
       }
@@ -106,14 +106,7 @@ class MoviesController {
 
     if (!$this->isPositiveNumber($sourceID)) return false;
 
-    $sql = "
-      SELECT
-        `sourcename`,
-        `realsourcepath`,
-        `websourcepath`
-      FROM `Sources`
-      WHERE `id` = ?
-    ";
+    $sql = "CALL get_source(?)";
 
     if (!($stmt = $this->database->prepare($sql))) {
       trigger_error("Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_WARNING);
@@ -127,9 +120,8 @@ class MoviesController {
 
       } else {
 
-        $stmt->store_result();
         $stmt->bind_result($arr["sourcename"],$arr["realsourcepath"],$arr["websourcepath"]);
-        $stmt->fetch_array(MYSQLI_ASSOC);
+        $stmt->fetch();
         return $arr;
 
       }

@@ -167,9 +167,3 @@ CREATE TABLE `UserRoles` (
   CONSTRAINT `RoleFK` FOREIGN KEY (`RoleID`) REFERENCES `Roles` (`ID`),
   CONSTRAINT `UserFK` FOREIGN KEY (`UserID`) REFERENCES `Users` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `UserRoles`
---
-
-INSERT INTO `UserRoles` VALUES (2,1),(1,2);
