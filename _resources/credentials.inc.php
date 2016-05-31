@@ -58,7 +58,7 @@ $hide_side_nav = true;
 $show_admin_nav_menu = true;
 
 // global overrides
-$global_credentials_local = (__DIR__) . "/credentials_local.inc.php";
+$global_credentials_local = (__DIR__) . "/credentials.local.inc.php";
 if (file_exists($global_credentials_local)) require_once($global_credentials_local);
 // section definitions
 require_once('_resources/credentials.inc.php');

@@ -90,14 +90,6 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Users`
---
-
-LOCK TABLES `Users` WRITE;
-INSERT INTO `Users` VALUES (1,'public','$2y$10$dL0MFPt1HaJ0DDhi6Hp3MuyTGukQUsijUIqw9.woGma13IUqKkNei',NULL),(2,'root','$2y$10$pcHwCUR9DcM/QLSjHH32R.OUAqYlHihv0osq8xmCluZBlG5x4fk.2','?restricted=on&new=on&unbanned=on'),(3,'family','$2y$10$6K49JWvCP8WkgwrALQ1pYe.nix006lvYnqH8gAX94g26FKJxRYCJi','?new=on');
-UNLOCK TABLES;
-
---
 -- Table structure for table `Tags`
 --
 
@@ -109,12 +101,6 @@ CREATE TABLE `Tags` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Tags`
---
-
-INSERT INTO `Tags` (`Name`) VALUES ('Restricted'),('Watched'),('Starred'),('Banned'),('Action'),('Adventure'),('Animation'),('Biography'),('Comedy'),('Crime'),('Documentary'),('Drama'),('Family'),('Fantasy'),('Film-Noir'),('History'),('Horror'),('Music'),('Musical'),('Mystery'),('Romance'),('Sci-Fi'),('Sport'),('Thriller'),('War'),('Western');
-
---
 -- Table structure for table `Roles`
 --
 
@@ -123,14 +109,6 @@ CREATE TABLE `Roles` (
   `Name` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Roles`
---
-
-LOCK TABLES `Roles` WRITE;
-INSERT INTO `Roles` VALUES (1,'admin'),(2,'unrestricted');
-UNLOCK TABLES;
 
 --
 -- linking tables
@@ -194,6 +172,4 @@ CREATE TABLE `UserRoles` (
 -- Dumping data for table `UserRoles`
 --
 
-LOCK TABLES `UserRoles` WRITE;
 INSERT INTO `UserRoles` VALUES (2,1),(1,2);
-UNLOCK TABLES;

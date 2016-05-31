@@ -3,5 +3,9 @@
 # move to working directory
 cd $( dirname "${BASH_SOURCE[0]}" )
 
+# reset db
+source tests/credentials.local.bash
+source _resources/SQL/ddl.sql.inc.bash
+
 # PHP Unit tests
-./vendor/bin/phpunit --bootstrap _resources/resources.inc.php tests
+./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php tests

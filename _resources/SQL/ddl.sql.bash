@@ -7,14 +7,6 @@ database_name="movs_dev"
 
 include_fake_data=false
 
-
-# must be in proper order for drop/add with key relationships
-ddl_files=(
-  "ddl.sql"
-  "sp.sql"
-)
-fake_data_files=()
-
 # move to working directory
 cd $( dirname "${BASH_SOURCE[0]}" )
 

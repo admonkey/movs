@@ -1,0 +1,1 @@
+CALL seed_database();

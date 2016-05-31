@@ -107,7 +107,10 @@ class MoviesController {
     if (!$this->isPositiveNumber($sourceID)) return false;
 
     $sql = "
-      SELECT *
+      SELECT
+        `sourcename`,
+        `realsourcepath`,
+        `websourcepath`
       FROM `Sources`
       WHERE `id` = ?
     ";
@@ -125,9 +128,9 @@ class MoviesController {
       } else {
 
         $stmt->store_result();
-        $stmt->bind_result($response);
+        $stmt->bind_result($arr["sourcename"],$arr["realsourcepath"],$arr["websourcepath"]);
         $stmt->fetch_array(MYSQLI_ASSOC);
-        return $response;
+        return $arr;
 
       }
 
