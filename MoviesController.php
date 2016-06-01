@@ -120,6 +120,9 @@ class MoviesController {
 
       } else {
 
+        $stmt->store_result();
+        if($stmt->num_rows < 1)
+          return false;
         $stmt->bind_result($arr["sourcename"],$arr["realsourcepath"],$arr["websourcepath"]);
         $stmt->fetch();
         $stmt->close();
