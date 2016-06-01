@@ -1,4 +1,25 @@
 #!/bin/bash
+#
+# -prod
+#       create Production database
+#
+#         web user with only sp execute
+#               credentials.local.inc.php
+#
+# -test
+#       create Test Quality Assurance database
+#
+#         bash user with all privileges
+#               credentials.local.bash
+#         web user with only sp execute
+#               credentials.local.inc.php
+#
+# default (no options)
+#       create Development database
+#
+#         bash & web user with all privileges
+#               credentials.local.bash
+#               credentials.local.inc.php
 
 database_server="localhost"
 
@@ -20,6 +41,8 @@ if [ -z "$1" ]; then
 
   new_db_name="movs_dev_$new_id"
   sql_privileges="GRANT ALL PRIVILEGES ON $new_db_name.* TO '$new_username'@'$database_server';"
+  echo "Creating new DEVELOPMENT database $new_db_name"
+  echo "$sql_privileges"
 
 else
 
@@ -32,6 +55,8 @@ else
       GRANT ALL PRIVILEGES ON $new_db_name.* TO '$test_dbo_username'@'$database_server';
       GRANT EXECUTE ON $new_db_name.* TO '$new_username'@'$database_server';
     "
+    echo "Creating new TEST-QA database $new_db_name"
+    echo "$sql_privileges"
     test_dbo_username="database_user=\"$test_dbo_username\";"
 
   fi
@@ -41,6 +66,8 @@ else
     new_db_name="movs_prod_$new_id"
     new_password="$(genpasswd 32)"
     sql_privileges="GRANT EXECUTE ON $new_db_name.* TO '$new_username'@'$database_server';"
+    echo "Creating new PRODUCTION database $new_db_name"
+    echo "$sql_privileges"
 
   fi
 
