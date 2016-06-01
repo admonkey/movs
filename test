@@ -6,6 +6,13 @@ start_dir=$(pwd)
 
 # reset db
 echo "creating database..."
+
+if [ ! -f tests/credentials.local.bash ]; then
+  cd tests
+  ../_resources/SQL/create_db_user.sql.bash -test
+  cd -
+fi
+
 source tests/credentials.local.bash
 source _resources/SQL/ddl.sql.inc.bash
 echo "...database created"
