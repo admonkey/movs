@@ -122,6 +122,7 @@ class MoviesController {
 
         $stmt->bind_result($arr["sourcename"],$arr["realsourcepath"],$arr["websourcepath"]);
         $stmt->fetch();
+        $stmt->close();
         return $arr;
 
       }
