@@ -141,6 +141,10 @@ class MoviesController {
 
     if (empty($_SESSION["ADMIN"])) return false;
 
+    $sourceData = $this->getSource($sourceID);
+
+    return $this->getMovs($sourceData['realsourcepath']);
+
   }
 
   //
@@ -151,6 +155,26 @@ class MoviesController {
 
     return ( !empty($num) && is_numeric($num) && $num > 0 );
 
+  }
+
+  private function getMovs($dir, $prefix = '') {
+    $dir = rtrim($dir, '\\/');
+    $extensions = array("mkv", "mp4", "avi", "mov");
+    $result = array();
+
+      foreach (scandir($dir) as $f) {
+        if ($f !== '.' and $f !== '..') {
+          if (is_dir("$dir/$f")) {
+            $result = array_merge($result, $this->getMovs("$dir/$f", "$prefix$f/"));
+          } else {
+                  $ext = pathinfo($prefix.$f, PATHINFO_EXTENSION);
+                  if (in_array($ext,$extensions)){
+                          $result[] = array("fpath"=>$prefix.$f, "fname"=>$f);}
+          }
+        }
+      }
+
+    return $result;
   }
 
 }

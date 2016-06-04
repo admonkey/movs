@@ -65,12 +65,36 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         // Assert
         // expect data
         $expectedMovies = array(
-          0 => "film.avi",
-          1 => "flick.mov",
-          2 => "movie.mkv",
-          3 => "nestedFolder/deepNestedFolder/deep.avi",
-          4 => "nestedFolder/nested.mkv",
-          5 => "show.mp4"
+          0=>
+          array(
+            "fpath"=>"film.avi",
+            "fname"=>"film.avi"
+          ),
+          1=>
+          array(
+            "fpath"=>"flick.mov",
+            "fname"=>"flick.mov"
+          ),
+          2=>
+          array(
+            "fpath"=>"movie.mkv",
+            "fname"=>"movie.mkv"
+          ),
+          3=>
+          array(
+            "fpath"=>"nestedFolder/deepNestedFolder/deep.avi",
+            "fname"=>"deep.avi"
+          ),
+          4=>
+          array(
+            "fpath"=>"nestedFolder/nested.mkv",
+            "fname"=>"nested.mkv"
+          ),
+          5=>
+          array(
+            "fpath"=>"show.mp4",
+            "fname"=>"show.mp4"
+          )
         );
         $this->assertEquals($expectedMovies, $sourceMovies);
     }
