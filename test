@@ -19,4 +19,7 @@ echo "...database created"
 
 # PHP Unit tests
 cd $start_dir
-./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php --testdox tests
+
+# uncomment for testdox format output
+# ./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php --testdox tests
+./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php tests
