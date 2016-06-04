@@ -6,7 +6,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         // elevate permissions
-        //echo PHP_EOL."Setting ADMIN = TRUE.".PHP_EOL;
+        echo PHP_EOL."Setting ADMIN = TRUE.".PHP_EOL;
         $_SESSION["ADMIN"] = true;
 
         // create object
@@ -25,11 +25,11 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
 
         // Act
         // create source
-        //echo PHP_EOL."Creating source.".PHP_EOL;
+        echo PHP_EOL."Creating source.".PHP_EOL;
         $sourceID = $theatre->createSource($sourceData);
 
         // get source
-        //echo PHP_EOL."Getting source $sourceID.".PHP_EOL;
+        echo PHP_EOL."Getting source $sourceID.".PHP_EOL;
         $sourceArray = $theatre->getSource($sourceID);
 
         // Assert

@@ -20,6 +20,9 @@ echo "...database created"
 # PHP Unit tests
 cd $start_dir
 
-# uncomment for testdox format output
-# ./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php --testdox tests
-./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php tests
+# -v for verbose
+if [ "$1" == "-v" ]; then
+  ./vendor/bin/phpunit --debug --bootstrap tests/tests.loader.inc.php tests
+else
+  ./vendor/bin/phpunit --bootstrap tests/tests.loader.inc.php --testdox tests
+fi
