@@ -136,14 +136,27 @@ class MoviesController {
 
   }
 
-  // create source
+  // scan source
   public function scanSource($sourceID) {
 
-    if (empty($_SESSION["ADMIN"])) return false;
+    if (empty($_SESSION["ADMIN"])) {
+      trigger_error("Only Administrators can scan source.", E_USER_WARNING);
+      return false;
+    }
 
     $sourceData = $this->getSource($sourceID);
+    if ($sourceData === false) {
+      trigger_error("Cannot get source.", E_USER_WARNING);
+      return false;
+    }
 
-    return $this->getMovs($sourceData['realsourcepath']);
+    $movies = $this->getMovs($sourceData['realsourcepath']);
+    if ($movies === false) {
+      trigger_error("Cannot get movies.", E_USER_WARNING);
+      return false;
+    }
+
+    return $movies;
 
   }
 
