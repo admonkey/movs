@@ -22,7 +22,7 @@ CREATE TABLE `Sources` (
   UNIQUE KEY `realsourcepath` (`realsourcepath`),
   UNIQUE KEY `websourcepath` (`websourcepath`)
   
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `Movies`
@@ -55,7 +55,7 @@ CREATE TABLE `Movies` (
   UNIQUE KEY `fpath` (`fpath`),
   UNIQUE KEY `imdbid` (`imdbid`),
   CONSTRAINT `SourceID-FK` FOREIGN KEY (`SourceID`) REFERENCES `Sources` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `MovieXtras`
@@ -74,7 +74,7 @@ CREATE TABLE `MovieXtras` (
   KEY `MovieID` (`MovieID`),
   CONSTRAINT `MovieIDx-FK` FOREIGN KEY (`MovieID`) REFERENCES `Movies` (`ID`),
   CONSTRAINT `SourceIDx-FK` FOREIGN KEY (`SourceID`) REFERENCES `Sources` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `Users`
@@ -87,7 +87,7 @@ CREATE TABLE `Users` (
   `Fav` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `User` (`User`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `Tags`
@@ -98,7 +98,7 @@ CREATE TABLE `Tags` (
   `Name` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `Roles`
@@ -108,7 +108,7 @@ CREATE TABLE `Roles` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- linking tables
