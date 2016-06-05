@@ -160,6 +160,18 @@ class MoviesController {
 
   }
 
+  // TODO: create movie
+  public function createMovie($data) {
+
+    if (empty($_SESSION["ADMIN"])) {
+      trigger_error("Only Administrators can create a movie.", E_USER_WARNING);
+      return false;
+    }
+
+    return false;
+
+  }
+
   //
   // private utility functions
   //

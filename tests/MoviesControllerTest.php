@@ -41,6 +41,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         "fname"=>"show.mp4"
       )
     );
+    private static $movieID = 1;
 
     public function testSourceCreated()
     {
@@ -104,6 +105,32 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals(self::$expectedMovies, $sourceMovies);
+    }
+
+    /**
+     * @depends testSourceScanned
+     */
+    public function testMovieCreated()
+    {
+        // Arrange
+        // elevate permissions
+        $_SESSION["ADMIN"] = true;
+
+        // create object
+        $theatre = new MoviesController();
+
+        // join movie data array
+        echo PHP_EOL."Prepping movie data.".PHP_EOL;
+        $movieData = array_merge(self::$expectedMovies[0],array("sourceID" => self::$sourceID));
+        var_dump($movieData);
+
+        // Act
+        echo PHP_EOL."Creating movie.".PHP_EOL;
+        $movieID = $theatre->createMovie($movieData);
+        var_dump($movieID);
+
+        // Assert
+        $this->assertEquals(self::$movieID, $movieID);
     }
 
 }
