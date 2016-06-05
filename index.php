@@ -10,6 +10,17 @@ echo "
   <h1>Welcome to $site_title</h1>
 ";
 
+try {
+    $dbh = new PDO("mysql:host=$database_server;dbname=$database_name", $database_username, $database_password);
+    foreach($dbh->query('SELECT * FROM  `Sources` ') as $row) {
+        print_r($row);
+    }
+    $dbh = null;
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+
 require_once('_resources/footer.inc.php');
 
 ?>
