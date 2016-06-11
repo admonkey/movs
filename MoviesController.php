@@ -2,6 +2,28 @@
 
 class MoviesController {
 
+/*
+
+    --
+    -- PUBLIC METHODS
+    --
+
+    -- GENERAL
+    getMovies($tagIDs = NULL)
+    getMovie($id)
+
+    -- AUTHENTICATED
+    scoreMovie($movieID,$score)
+    tagMovie($movieID,$tagID,$delete = false)
+
+    -- ADMIN
+    createSource($sourceData)
+    getSource($sourceID)
+    scanSource($sourceID)
+    createMovie($data)
+
+*/
+
   private $authenticated;
   private $admin;
   private $database;
