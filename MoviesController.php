@@ -3,6 +3,7 @@
 class MoviesController {
 
   private $authenticated;
+  private $admin;
   private $database;
 
   function __construct() {
@@ -16,10 +17,11 @@ class MoviesController {
 
   private function authenticate() {
 
-    if (empty($_SESSION["USER_ID"])){
-      //trigger_error("Not Logged In", E_USER_WARNING);
-      return false;
-    } else return true;
+    if (empty($_SESSION["USER_ID"])) return false;
+
+    $this->admin = !empty($_SESSION["ADMIN"]);
+
+    return true;
 
   }
 
@@ -61,7 +63,7 @@ class MoviesController {
   // create source
   public function createSource($sourceData) {
 
-    if (empty($_SESSION["ADMIN"])) {
+    if (!$this->admin) {
       trigger_error("Error: Only Admins Can Create Sources", E_USER_WARNING);
       return false;
     }
@@ -149,7 +151,7 @@ class MoviesController {
   // scan source
   public function scanSource($sourceID) {
 
-    if (empty($_SESSION["ADMIN"])) {
+    if (!$this->admin) {
       trigger_error("Only Administrators can scan source.", E_USER_WARNING);
       return false;
     }
@@ -173,7 +175,7 @@ class MoviesController {
   // TODO: create movie
   public function createMovie($data) {
 
-    if (empty($_SESSION["ADMIN"])) {
+    if (!$this->admin) {
       trigger_error("Only Administrators can create a movie.", E_USER_WARNING);
       return false;
     }
