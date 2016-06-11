@@ -37,16 +37,6 @@ class MoviesController {
 
   }
 
-  private function authenticate() {
-
-    if (empty($_SESSION["USER_ID"])) return false;
-
-    $this->admin = !empty($_SESSION["ADMIN"]);
-
-    return true;
-
-  }
-
   // get movie collection
   public function getMovies($tagIDs = NULL) {
 
@@ -209,6 +199,16 @@ class MoviesController {
   //
   // private utility functions
   //
+
+  private function authenticate() {
+
+    if (empty($_SESSION["USER_ID"])) return false;
+
+    $this->admin = !empty($_SESSION["ADMIN"]);
+
+    return true;
+
+  }
 
   private function isPositiveNumber($num) {
 
