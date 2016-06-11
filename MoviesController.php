@@ -7,7 +7,7 @@ class MoviesController {
 
   function __construct() {
 
-    $authenticated = $this->authenticate();
+    $this->authenticated = $this->authenticate();
 
     $this->database = new mysqli(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
     if ($this->database->connect_error) trigger_error('Connect Error: '.$this->database->connect_error, E_USER_ERROR);
@@ -38,13 +38,23 @@ class MoviesController {
 
   public function scoreMovie($movieID,$score) {
 
-    if (!$authenticated) return false;
+    if (!$this->authenticated) {
+      trigger_error("Error: Must be logged in to score a movie.", E_USER_ERROR);
+      return false;
+    }
+
+    return false;
 
   }
 
   public function tagMovie($movieID,$tagID,$delete = false) {
 
-    if (!$authenticated) return false;
+    if (!$this->authenticated) {
+      trigger_error("Error: Must be logged in to tag a movie.", E_USER_ERROR);
+      return false;
+    }
+
+    return false;
 
   }
 
