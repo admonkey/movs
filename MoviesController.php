@@ -64,40 +64,40 @@ class MoviesController {
   public function createSource($sourceData) {
 
     if (!$this->admin) {
-      trigger_error("Error: Only Admins Can Create Sources", E_USER_WARNING);
+      trigger_error("Error: Only Admins Can Create Sources", E_USER_ERROR);
       return false;
     }
 
     if (empty($sourceData["sourcename"])) {
-      trigger_error("Error: No sourcename specified", E_USER_WARNING);
+      trigger_error("Error: No sourcename specified", E_USER_ERROR);
       return false;
     }
 
     if (empty($sourceData["realsourcepath"])) {
-      trigger_error("Error: No realsourcepath specified", E_USER_WARNING);
+      trigger_error("Error: No realsourcepath specified", E_USER_ERROR);
       return false;
     }
 
     if (empty($sourceData["websourcepath"])) {
-      trigger_error("Error: No websourcepath specified", E_USER_WARNING);
+      trigger_error("Error: No websourcepath specified", E_USER_ERROR);
       return false;
     }
 
     if(!is_dir($sourceData["realsourcepath"])) {
-      trigger_error("Error: realsourcepath is not a directory", E_USER_WARNING);
+      trigger_error("Error: realsourcepath is not a directory", E_USER_ERROR);
       return false;
     }
 
     $sql = "CALL insert_source (?,?,?)";
 
     if (!($stmt = $this->database->prepare($sql))) {
-      trigger_error("Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_WARNING);
+      trigger_error("Error: Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_ERROR);
       return false;
     } else {
 
       $stmt->bind_param('sss', $sourceData["sourcename"], $sourceData["realsourcepath"], $sourceData["websourcepath"]);
       if (!$stmt->execute()) {
-        trigger_error("Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_WARNING);
+        trigger_error("Error: Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_ERROR);
         return false;
 
       } else {
@@ -121,13 +121,13 @@ class MoviesController {
     $sql = "CALL get_source(?)";
 
     if (!($stmt = $this->database->prepare($sql))) {
-      trigger_error("Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_WARNING);
+      trigger_error("Error: Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_ERROR);
       return false;
     } else {
 
       $stmt->bind_param('i', $sourceID);
       if (!$stmt->execute()) {
-        trigger_error("Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_WARNING);
+        trigger_error("Error: Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_ERROR);
         return false;
 
       } else {
@@ -152,19 +152,19 @@ class MoviesController {
   public function scanSource($sourceID) {
 
     if (!$this->admin) {
-      trigger_error("Only Administrators can scan source.", E_USER_WARNING);
+      trigger_error("Error: Only Administrators can scan source.", E_USER_ERROR);
       return false;
     }
 
     $sourceData = $this->getSource($sourceID);
     if ($sourceData === false) {
-      trigger_error("Cannot get source.", E_USER_WARNING);
+      trigger_error("Error: Cannot get source.", E_USER_ERROR);
       return false;
     }
 
     $movies = $this->getMovs($sourceData['realsourcepath']);
     if ($movies === false) {
-      trigger_error("Cannot get movies.", E_USER_WARNING);
+      trigger_error("Error: Cannot get movies.", E_USER_ERROR);
       return false;
     }
 
@@ -176,7 +176,7 @@ class MoviesController {
   public function createMovie($data) {
 
     if (!$this->admin) {
-      trigger_error("Only Administrators can create a movie.", E_USER_WARNING);
+      trigger_error("Error: Only Administrators can create a movie.", E_USER_ERROR);
       return false;
     }
 
