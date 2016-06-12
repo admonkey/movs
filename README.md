@@ -1,4 +1,4 @@
-# Movies
+# Movies (IN DEVELOPMENT)
 Site for self-hosted movie collection.
 
 ## TODO
@@ -68,9 +68,46 @@ with self-signed SSL certificate, including hosts entry:
 
     ./_resources/_setup/install.bash
 
+
+-----------
+Development
+-----------
+
+
+## Testing
+
+There's [a test script][8] written in bash that will create a test database and user account,
+if one doesn't already exist. Then it will drop all tables and recreate them fresh
+including stored procedures. Then the [PHPUnit][7] test suite will be run.
+
+    ./test
+
+The verbose flag will show more detailed output.
+
+    ./test -v
+
+## Notes
+
+### Switching Database Management Systems
+
+The database object connects using [PDO for PHP][10]
+with a wrapper function called `MoviesController::executeQuery`
+that relies on [PDOStatement::rowCount][11] which has documented that:
+
+> some databases may return the number of rows returned by that statement. However, this behaviour is not guaranteed for all databases and should not be relied on for portable applications.
+
+So while this currently works with
+MySQL Ver 14.14 Distrib 5.5.49, for debian-linux-gnu (x86_64) using readline 6.3
+recognize that this may be an incompatibility risk when migrating to another DBMS.
+
 [1]:_resources/SQL/create_db_user.sql
 [2]:_resources/SQL/ddl.sql.bash
 [3]:_resources/_setup/install.bash
 [4]:_resources/SQL/ddl.sql
 [5]:_resources/SQL/erd.png
 [6]:_resources/credentials.inc.php
+[7]:https://phpunit.de/
+[8]:test
+[9]:http://php.net/manual/en/pdostatement.rowcount.php
+[10]:http://php.net/manual/en/book.pdo.php
+[11]:http://php.net/manual/en/pdostatement.rowcount.php
