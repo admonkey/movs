@@ -32,7 +32,7 @@ CREATE TABLE `Movies` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `fpath` varchar(255) NOT NULL,
-  `SourceID` int(11) NOT NULL,
+  `sourceID` int(11) NOT NULL,
   `extension` varchar(5) NOT NULL,
   `mimetype` varchar(50) DEFAULT NULL,
   `audioCodec` varchar(50) DEFAULT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE `Movies` (
   `writer` text,
   `actors` text,
   PRIMARY KEY (`ID`),
-  KEY `SourceID` (`SourceID`),
+  KEY `sourceID` (`sourceID`),
   UNIQUE KEY `fpath` (`fpath`),
   UNIQUE KEY `imdbid` (`imdbid`),
-  CONSTRAINT `SourceID-FK` FOREIGN KEY (`SourceID`) REFERENCES `Sources` (`ID`)
+  CONSTRAINT `sourceID-FK` FOREIGN KEY (`sourceID`) REFERENCES `Sources` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --

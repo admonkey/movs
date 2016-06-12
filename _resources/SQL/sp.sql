@@ -59,7 +59,7 @@ END $$
 CREATE PROCEDURE insert_movie (
   IN `p_fname` varchar(255),
   IN `p_fpath` varchar(255),
-  IN `p_SourceID` int(11),
+  IN `p_sourceID` int(11),
   IN `p_extension` varchar(5),
   IN `p_mimetype` varchar(50),
   IN `p_audioCodec` varchar(50),
@@ -84,7 +84,7 @@ this_procedure:BEGIN
   (
     `fname`,
     `fpath`,
-    `SourceID`,
+    `sourceID`,
     `extension`,
     `mimetype`,
     `audioCodec`,
@@ -106,7 +106,7 @@ this_procedure:BEGIN
   VALUES (
     `p_fname`,
     `p_fpath`,
-    `p_SourceID`,
+    `p_sourceID`,
     `p_extension`,
     `p_mimetype`,
     `p_audioCodec`,
