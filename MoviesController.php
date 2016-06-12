@@ -150,6 +150,31 @@ class MoviesController {
       return false;
     }
 
+    return $this->executeQuery("
+      CALL insert_movie(
+        :fname,
+        :fpath,
+        :sourceID,
+        :extension,
+        :mimetype,
+        :audioCodec,
+        :videoCodec,
+        :title,
+        :imdbid,
+        :plot,
+        :runtime,
+        :year,
+        :released,
+        :awards,
+        :country,
+        :language,
+        :rated,
+        :director,
+        :writer,
+        :actors
+      )
+    ", $data);
+
     return false;
 
   }
