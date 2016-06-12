@@ -172,13 +172,30 @@ class MoviesController {
 
     $stmt = $this->database->prepare($sql);
 
-    if (is_array($params)) // prefix key with colon for bind ( :key )
+    if (is_array($params)) {
+
+      // get number of passed parameters for bind
+      $temp = explode(":",$sql);
+      for ($i=1;$i<count($temp);$i++) {
+        $paramkeys []= rtrim($temp[$i],", \n)");
+      }
+
+      // if different count, then set remainders = null
+      if (count($paramkeys) !== count($params)) {
+        $paramkeys = array_diff_key(array_flip($paramkeys),$params);
+        foreach ($paramkeys as &$paramkey) $paramkey = null;
+        $params = array_merge($params,$paramkeys);
+      }
+
+      // prefix key with colon for bind statement ( :key )
       $params = array_combine(
           array_map(
             function($key){ return ':'.$key; },
             array_keys($params)),
           $params
       ); // thanks http://stackoverflow.com/a/2609278/4233593
+
+    }
 
     if ($stmt->execute($params)) {
       if($stmt->rowCount() === 1) // return single-dimensional array
