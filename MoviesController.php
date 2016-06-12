@@ -32,8 +32,13 @@ class MoviesController {
 
     $this->authenticated = $this->authenticate();
 
-    $this->database = new mysqli(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
-    if ($this->database->connect_error) trigger_error('Connect Error: '.$this->database->connect_error, E_USER_ERROR);
+    try {
+      $this->database = new PDO("mysql:host=".DATABASE_SERVER.";dbname=".DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD);
+      // set the PDO error mode to exception
+      $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+      trigger_error('Connect Error: '.$e->getMessage(), E_USER_ERROR);
+    }
 
   }
 
@@ -100,28 +105,7 @@ class MoviesController {
       return false;
     }
 
-    $sql = "CALL insert_source (?,?,?)";
-
-    if (!($stmt = $this->database->prepare($sql))) {
-      trigger_error("Error: Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_ERROR);
-      return false;
-    } else {
-
-      $stmt->bind_param('sss', $sourceData["sourcename"], $sourceData["realsourcepath"], $sourceData["websourcepath"]);
-      if (!$stmt->execute()) {
-        trigger_error("Error: Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_ERROR);
-        return false;
-
-      } else {
-
-        $stmt->bind_result($response);
-        $stmt->fetch();
-        $stmt->close();
-        return $response;
-
-      }
-
-    }
+    return $this->executeQuery("CALL insert_source(:sourcename,:realsourcepath,:websourcepath)", $sourceData);
 
   }
 
@@ -130,33 +114,7 @@ class MoviesController {
 
     if (!$this->isPositiveNumber($sourceID)) return false;
 
-    $sql = "CALL get_source(?)";
-
-    if (!($stmt = $this->database->prepare($sql))) {
-      trigger_error("Error: Prepare failed: (".$this->database->errno.") ".$this->database->error, E_USER_ERROR);
-      return false;
-    } else {
-
-      $stmt->bind_param('i', $sourceID);
-      if (!$stmt->execute()) {
-        trigger_error("Error: Execute failed: (".$stmt->errno.") ".$stmt->error, E_USER_ERROR);
-        return false;
-
-      } else {
-
-        $stmt->store_result();
-        if($stmt->num_rows < 1){
-          $stmt->close();
-          return false;
-        }
-        $stmt->bind_result($arr["sourcename"],$arr["realsourcepath"],$arr["websourcepath"]);
-        $stmt->fetch();
-        $stmt->close();
-        return $arr;
-
-      }
-
-    }
+    return $this->executeQuery("CALL get_source(:sourceID)", array("sourceID" => $sourceID));
 
   }
 
@@ -207,6 +165,33 @@ class MoviesController {
     $this->admin = !empty($_SESSION["ADMIN"]);
 
     return true;
+
+  }
+
+  private function executeQuery($sql, $params = null) {
+
+    $stmt = $this->database->prepare($sql);
+
+    if (is_array($params)) // prefix key with colon for bind ( :key )
+      $params = array_combine(
+          array_map(
+            function($key){ return ':'.$key; },
+            array_keys($params)),
+          $params
+      ); // thanks http://stackoverflow.com/a/2609278/4233593
+
+    if ($stmt->execute($params)) {
+      if($stmt->rowCount() === 1) // return single-dimensional array
+        if ($stmt->columnCount() === 1) // return just one value
+          return $stmt->fetch()[0];
+        else return $stmt->fetch();
+      while ($row = $stmt->fetch()) { // else return multi-dimensional array
+        $return []= $row;
+      }
+      return $return;
+    }
+
+    return false;
 
   }
 

@@ -82,7 +82,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         var_dump($sourceArray);
 
         // Assert
-        $this->assertEquals(self::$sourceData, $sourceArray);
+        $this->assertArraySubset(self::$sourceData, $sourceArray);
     }
 
     /**
