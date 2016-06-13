@@ -257,7 +257,7 @@ class MoviesController {
           } else {
                   $ext = pathinfo($prefix.$f, PATHINFO_EXTENSION);
                   if (in_array($ext,$extensions)){
-                          $result[] = array("fpath"=>$prefix.$f, "fname"=>$f);}
+                          $result[] = array("fpath"=>$prefix.$f, "fname"=>$f, "extension"=>$ext);}
           }
         }
       }

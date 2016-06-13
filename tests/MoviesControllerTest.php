@@ -13,32 +13,38 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
       0=>
       array(
         "fpath"=>"film.avi",
-        "fname"=>"film.avi"
+        "fname"=>"film.avi",
+        "extension"=>"avi"
       ),
       1=>
       array(
         "fpath"=>"flick.mov",
-        "fname"=>"flick.mov"
+        "fname"=>"flick.mov",
+        "extension"=>"mov"
       ),
       2=>
       array(
         "fpath"=>"movie.mkv",
-        "fname"=>"movie.mkv"
+        "fname"=>"movie.mkv",
+        "extension"=>"mkv"
       ),
       3=>
       array(
         "fpath"=>"nestedFolder/deepNestedFolder/deep.avi",
-        "fname"=>"deep.avi"
+        "fname"=>"deep.avi",
+        "extension"=>"avi"
       ),
       4=>
       array(
         "fpath"=>"nestedFolder/nested.mkv",
-        "fname"=>"nested.mkv"
+        "fname"=>"nested.mkv",
+        "extension"=>"mkv"
       ),
       5=>
       array(
         "fpath"=>"show.mp4",
-        "fname"=>"show.mp4"
+        "fname"=>"show.mp4",
+        "extension"=>"mp4"
       )
     );
     private static $movieID = 1;
