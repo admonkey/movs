@@ -150,6 +150,8 @@ class MoviesController {
       return false;
     }
 
+    if(empty($data['title'])) $data['title'] = $data['fname'];
+
     return $this->executeQuery("
       CALL insert_movie(
         :fname,
