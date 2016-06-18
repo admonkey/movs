@@ -207,7 +207,7 @@ public function createMovie($data) {
 
 function __construct() {
 
-  $this->authenticated = $this->authenticate();
+  $this->authenticated = $this->checkIfAlreadyAuthenticated();
 
   try {
     $this->database = new PDO("mysql:host=".DATABASE_SERVER.";dbname=".DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -220,7 +220,7 @@ function __construct() {
 }
 
 
-private function authenticate() {
+private function checkIfAlreadyAuthenticated() {
 
   if (empty($_SESSION["USER_ID"])) return false;
 
