@@ -139,4 +139,27 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::$movieID, $movieID);
     }
 
+    /**
+     * @depends testMovieCreated
+     */
+    public function testMovieRetrieved()
+    {
+        // Arrange
+        // create object
+        $theatre = new MoviesController();
+
+        // join movie data array
+        echo PHP_EOL."Expecting movie data:".PHP_EOL;
+        $expectedMovieData = array_merge(self::$expectedMovies[0],array("sourceID" => self::$sourceID));
+        var_dump($expectedMovieData);
+
+        // Act
+        echo PHP_EOL."Retrieving movie:".PHP_EOL;
+        $movieData = $theatre->getMovie(self::$movieID);
+        var_dump($movieData);
+
+        // Assert
+        $this->assertEquals($expectedMovieData, $movieData);
+    }
+
 }
