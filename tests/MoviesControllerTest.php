@@ -3,6 +3,10 @@ define('TEST_SOURCE_DIR',__DIR__.'/testSource');
 class MoviesControllerTest extends PHPUnit_Framework_TestCase
 {
 
+    private static $rootUserID = 1;
+    private static $rootUsername = 'root';
+    private static $rootUserPW = 'open';
+
     private static $sourceID = 1;
     private static $sourceData = array(
       "sourcename" => "testSource",
@@ -49,6 +53,28 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     );
     private static $movieID = 1;
 
+
+    public function testLoginRoot()
+    {
+        // Arrange
+        $theatre = new MoviesController();
+
+        // Act
+        echo PHP_EOL.
+          "Logging in root.".PHP_EOL.
+          '$rootUsername = '.self::$rootUsername.PHP_EOL.
+          '$rootUserPW = '.self::$rootUserPW.PHP_EOL;
+        $userID = $theatre->login(self::$rootUsername,self::$rootUserPW);
+        echo PHP_EOL.
+          '$userID = '.PHP_EOL;
+        var_dump($userID);
+
+        // Assert
+        $this->assertEquals(self::$rootUserID, $userID);
+        $this->assertEquals(true, $theatre->isAdmin());
+    }
+
+
     public function testSourceCreated()
     {
         // Arrange
@@ -68,6 +94,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($sourceID, self::$sourceID);
     }
+
 
     /**
      * @depends testSourceCreated

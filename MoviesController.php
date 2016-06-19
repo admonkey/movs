@@ -13,6 +13,7 @@ class MoviesController {
     -- GENERAL
     TODO: getMovies($tagIDs = NULL) array, false on failure
     TODO: getMovie($id) array, false on failure
+    TODO: login($username,$password) boolean
     isAdmin() boolean
 
     -- AUTHENTICATED
@@ -76,6 +77,24 @@ public function getMovie($id){
 }
 
 
+/**
+*  TODO: authenticate user against database credentials or LDAP
+*
+*  @return boolean
+*/
+public function login($username,$password) {
+
+  // check if LDAP domain
+
+  // hash pass
+
+  // get ADMIN status
+
+  // set session vars
+
+  return false;
+
+}
 
 
 /**
