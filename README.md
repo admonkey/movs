@@ -100,6 +100,12 @@ So while this currently works with
 MySQL Ver 14.14 Distrib 5.5.49, for debian-linux-gnu (x86_64) using readline 6.3
 recognize that this may be an incompatibility risk when migrating to another DBMS.
 
+## Future Roadmap
+
+The built-in default 'family' account exists to have a common watched history and score,
+but it would be nice to have a
+social component for viewing and filtering search results based on other users' scores.
+
 [1]:_resources/SQL/create_db_user.sql
 [2]:_resources/SQL/ddl.sql.bash
 [3]:_resources/_setup/install.bash
