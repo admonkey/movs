@@ -6,6 +6,9 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     private static $rootUserID = 1;
     private static $rootUsername = 'root';
     private static $rootUserPW = 'open';
+    private static $familyUserID = 2;
+    private static $familyUsername = 'family';
+    private static $familyUserPW = 'watch';
 
     private static $sourceID = 1;
     private static $sourceData = array(
