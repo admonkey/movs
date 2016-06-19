@@ -13,6 +13,7 @@ class MoviesController {
     -- GENERAL
     TODO: getMovies($tagIDs = NULL) array, false on failure
     TODO: getMovie($id) array, false on failure
+    isAdmin() boolean
 
     -- AUTHENTICATED
     TODO: scoreMovie($movieID,$score) boolean
@@ -75,6 +76,18 @@ public function getMovie($id){
 }
 
 
+
+
+/**
+*  get user admin status
+*
+*  @return boolean
+*/
+public function isAdmin() {
+
+  return $this->admin;
+
+}
 
 
 //
