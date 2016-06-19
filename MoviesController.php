@@ -18,6 +18,7 @@ class MoviesController {
     isAdmin() boolean
 
     -- AUTHENTICATED
+    TODO: logout() boolean
     TODO: scoreMovie($movieID,$score) boolean
     TODO: tagMovie($movieID,$tagID,$delete = false)) boolean
 
@@ -85,6 +86,8 @@ public function getMovie($id){
 */
 public function login($username,$password) {
 
+  // logout if already logged in
+
   // check if LDAP domain
 
   // hash pass
@@ -125,6 +128,20 @@ public function isAdmin() {
 //
 // AUTHENTICATED METHODS
 //
+
+
+/**
+*  TODO: logout
+*
+*  @return boolean
+*/
+public function logout() {
+
+  // destroy session
+
+  return false;
+
+}
 
 
 /**

@@ -76,6 +76,25 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @depends testLoginRoot
+     */
+    public function testLogout()
+    {
+        // Arrange
+        $theatre = new MoviesController();
+        echo PHP_EOL."Logging in root.".PHP_EOL;
+        $userID = $theatre->login(self::$rootUsername,self::$rootUserPW);
+        $this->assertEquals(true, $theatre->isLoggedIn());
+
+        // Act
+        $theatre->logout();
+
+        // Assert
+        $this->assertEquals(false, $theatre->isLoggedIn());
+    }
+
+
     public function testSourceCreated()
     {
         // Arrange
