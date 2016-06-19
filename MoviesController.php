@@ -24,6 +24,18 @@ class MoviesController {
     scanSource($sourceID) array, false on failure
     createMovie($data) boolean
 
+    --
+    -- PRIVATE FUNCTIONS
+    --
+    -- functionName($parameters = DEFAULTS) returns
+    --
+
+    __construct() MoviesController
+    checkIfAlreadyAuthenticated() boolean
+    executeQuery($sql, $params = null) array, string/int, false on failure
+    isPositiveNumber($num) boolean
+    getMovs($dir, $prefix = '') array
+
 */
 
 
