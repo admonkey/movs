@@ -14,6 +14,7 @@ class MoviesController {
     TODO: getMovies($tagIDs = NULL) array, false on failure
     TODO: getMovie($id) array, false on failure
     TODO: login($username,$password) boolean
+    isLoggedIn() boolean
     isAdmin() boolean
 
     -- AUTHENTICATED
@@ -93,6 +94,18 @@ public function login($username,$password) {
   // set session vars
 
   return false;
+
+}
+
+
+/**
+*  get user logged in status
+*
+*  @return boolean
+*/
+public function isLoggedIn() {
+
+  return $this->authenticated;
 
 }
 
