@@ -27,8 +27,6 @@ class MoviesController {
     --
     -- PRIVATE FUNCTIONS
     --
-    -- functionName($parameters = DEFAULTS) returns
-    --
 
     __construct() MoviesController
     checkIfAlreadyAuthenticated() boolean
@@ -42,6 +40,11 @@ class MoviesController {
 private $authenticated;
 private $admin;
 private $database;
+
+
+//
+// GENERAL METHODS
+//
 
 
 /**
@@ -69,6 +72,13 @@ public function getMovie($id){
   return false;
 
 }
+
+
+
+
+//
+// AUTHENTICATED METHODS
+//
 
 
 /**
@@ -102,6 +112,11 @@ public function tagMovie($movieID,$tagID,$delete = false,$global = false){
   return false;
 
 }
+
+
+//
+// ADMIN METHODS
+//
 
 
 // create source
@@ -213,7 +228,7 @@ public function createMovie($data) {
 
 
 //
-// private utility functions
+// PRIVATE UTILITY FUNCTIONS
 //
 
 
