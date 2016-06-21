@@ -113,6 +113,22 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::$expectedMovies, $sourceMovies);
     }
 
+
+    public function testNoMoviesFoundInDatabase()
+    {
+        // Arrange
+        $theatre = new MoviesController();
+
+        // Act
+        echo PHP_EOL."Checking empty database for movies.".PHP_EOL;
+        $return = $theatre->findNewMovies('film.avi,news.mov');
+        var_dump($return);
+
+        // Assert
+        $this->assertArraySubset(array(array('film.avi'),array('news.mov')), $return);
+    }
+
+
     public function testMovieCreated()
     {
         // Arrange
@@ -134,6 +150,25 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals(self::$movieID, $movieID);
+    }
+
+
+    /**
+     * @depends testMovieCreated
+     */
+    public function testNewMovieFoundNotInDatabase()
+    {
+        // Arrange
+        $theatre = new MoviesController();
+        $filelist = self::$expectedMovies[0]['fpath'].',news.mov';
+
+        // Act
+        echo PHP_EOL."Checking for files not in database.".PHP_EOL;
+        $return = $theatre->findNewMovies($filelist);
+        var_dump($return);
+
+        // Assert
+        $this->assertEquals('news.mov', $return);
     }
 
 

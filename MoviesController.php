@@ -22,6 +22,7 @@ class MoviesController {
     createSource($sourceData) boolean
     getSource($sourceID) array, false on failure
     scanSource($sourceID) array, false on failure
+    findNewMovies($filelist) array, string for 1 result, false on failure
     createMovie($data) boolean
 
     --
@@ -186,6 +187,13 @@ public function scanSource($sourceID) {
 
 }
 
+
+// find new movies
+public function findNewMovies($filelist){
+
+  return $this->executeQuery("CALL find_new_movies(:movielist)", array("movielist"=>$filelist));
+
+}
 
 // create movie
 public function createMovie($data) {

@@ -3,6 +3,7 @@ DROP PROCEDURE IF EXISTS seed_database;
 DROP PROCEDURE IF EXISTS insert_source;
 DROP PROCEDURE IF EXISTS get_source;
 
+DROP PROCEDURE IF EXISTS find_new_movies;
 DROP PROCEDURE IF EXISTS insert_movie;
 
 DELIMITER $$
@@ -52,6 +53,30 @@ END $$
 ----
 ---- MOVIES
 ----
+
+--
+-- find new movies in set
+--
+CREATE PROCEDURE find_new_movies (
+  IN file_list LONGTEXT
+)
+this_procedure:BEGIN
+
+  SET file_list = REPLACE(file_list, ",", "'),('");
+  SET file_list = CONCAT("('",file_list,"')");
+
+  CREATE TEMPORARY TABLE files (fpath VARCHAR(1000));
+
+  SET @sql = CONCAT("INSERT INTO files VALUES ",file_list);
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+
+  SELECT fpath
+  FROM files
+  WHERE fpath NOT IN
+    (SELECT fpath FROM Movies);
+
+END $$
 
 --
 -- create movie
