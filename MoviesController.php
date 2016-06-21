@@ -287,7 +287,7 @@ private function executeQuery($sql, $params = null) {
 
   }
 
-  if ($stmt->execute($params)) {
+  if ($stmt->execute($params) && $stmt->rowCount() > 0) {
     if($stmt->rowCount() === 1) // return single-dimensional array
       if ($stmt->columnCount() === 1) // return just one value
         return $stmt->fetch()[0];
