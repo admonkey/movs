@@ -113,9 +113,6 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::$expectedMovies, $sourceMovies);
     }
 
-    /**
-     * @depends testSourceScanned
-     */
     public function testMovieCreated()
     {
         // Arrange
@@ -138,6 +135,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(self::$movieID, $movieID);
     }
+
 
     /**
      * @depends testMovieCreated
