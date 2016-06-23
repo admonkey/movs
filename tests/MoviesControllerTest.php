@@ -73,6 +73,9 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $theatre->isLoggedIn());
         $this->assertEquals(self::$rootUserID, $userID);
         $this->assertEquals(true, $theatre->isAdmin());
+
+        // Absterge
+        unset($theatre);
     }
 
 
