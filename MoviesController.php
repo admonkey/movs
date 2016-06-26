@@ -18,7 +18,7 @@ class MoviesController {
     isAdmin() boolean
 
     -- AUTHENTICATED
-    TODO: logout() boolean
+    logout() boolean
     TODO: scoreMovie($movieID,$score) boolean
     TODO: tagMovie($movieID,$tagID,$delete = false)) boolean
 
@@ -87,6 +87,36 @@ public function getMovie($id){
 public function login($username,$password) {
 
   // logout if already logged in
+  if ($this->authenticated) $this->logout();
+
+  if (empty($_SESSION)) {
+
+    // Forces sessions to only use cookies.
+    if (ini_set('session.use_only_cookies', 1) === FALSE) {
+        trigger_error("ERROR: Could not initiate a safe session (ini_set)", E_USER_ERROR);
+    }
+
+    // Set a custom session name
+    session_name('sec_session_id');
+
+    // If TRUE cookie will only be sent over secure connections.
+    // http://php.net/manual/en/session.configuration.php#ini.session.cookie-secure
+    $secure = false;
+
+    // This stops JavaScript being able to access the session id.
+    $httponly = true;
+
+    // Gets current cookies params.
+    $cookieParams = session_get_cookie_params();
+    session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
+
+    // Start the PHP session
+    if (!session_start()) return false;
+
+    // regenerated the session, delete the old one.
+    if (!session_regenerate_id()) return false;
+
+  } else return false;
 
   // check if LDAP domain
 
@@ -131,15 +161,23 @@ public function isAdmin() {
 
 
 /**
-*  TODO: logout
+*  logout
 *
 *  @return boolean
 */
 public function logout() {
 
-  // destroy session
+  // Unset all session values 
+  $_SESSION = array();
 
-  return false;
+  // get session parameters 
+  $params = session_get_cookie_params();
+
+  // Delete the actual cookie. 
+  setcookie(session_name(),'', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+
+  // Destroy session 
+  return session_destroy();
 
 }
 

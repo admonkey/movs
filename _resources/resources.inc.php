@@ -48,63 +48,6 @@ function mysqlo_prepare_input($text){
 
 }
 
-function sec_session_start() {
-    $session_name = 'sec_session_id';   // Set a custom session name 
-
-    if(empty($require_ssl))
-      $secure = false;
-    else
-      $secure = true;
-
-    // This stops JavaScript being able to access the session id.
-    $httponly = true;
-
-    // Forces sessions to only use cookies.
-    if (ini_set('session.use_only_cookies', 1) === FALSE) {
-        //header("Location: error.php?err=Could not initiate a safe session (ini_set)");
-        //exit();
-        die("ERROR: Could not initiate a safe session (ini_set)");
-    }
-
-    // Gets current cookies params.
-    $cookieParams = session_get_cookie_params();
-    session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
-
-    // Sets the session name to the one set above.
-    //session_name($session_name);
-    
-    /*
-    removed for backwards compatibility with php <=5.4.0
-    if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-    }
-    */
-    if (!isset($_SESSION)) {
-      session_start();            // Start the PHP session 
-      session_regenerate_id();    // regenerated the session, delete the old one. 
-    }
-
-    if (isset($_GET["logout"])){
-      // Unset all session values 
-      $_SESSION = array();
-
-      // get session parameters 
-      $params = session_get_cookie_params();
-
-      // Delete the actual cookie. 
-      setcookie(session_name(),'', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
-
-      // Destroy session 
-      session_destroy();
-      unset($_GET["logout"]);
-      header("Location: $_SERVER[SCRIPT_NAME]");
-    }
-
-}
-
-// start session
-sec_session_start();
-
 define("DATABASE_SERVER", $database_server);
 define("DATABASE_USERNAME", $database_username);
 define("DATABASE_PASSWORD", $database_password);

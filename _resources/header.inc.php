@@ -2,8 +2,6 @@
 
 require_once((__DIR__)."/resources.inc.php");
 
-sec_session_start();
-
 // if filename contains ".ajax." or ".bounce.", 
 //   or $exclude_html = true; 
 // then don't print html header
