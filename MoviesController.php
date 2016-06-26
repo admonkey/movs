@@ -87,46 +87,22 @@ public function getMovie($id){
 public function login($username,$password) {
 
   // logout if already logged in
-  if ($this->authenticated) $this->logout();
+  $logged_out = !$this->authenticated;
+  if (!$logged_out) $logged_out = $this->logout();
 
-  if (empty($_SESSION)) {
+  if ( $logged_out && $this->sec_session_start() ) {
 
-    // Forces sessions to only use cookies.
-    if (ini_set('session.use_only_cookies', 1) === FALSE) {
-        trigger_error("ERROR: Could not initiate a safe session (ini_set)", E_USER_ERROR);
-    }
+    // check if LDAP domain
 
-    // Set a custom session name
-    session_name('sec_session_id');
+    // hash pass
 
-    // If TRUE cookie will only be sent over secure connections.
-    // http://php.net/manual/en/session.configuration.php#ini.session.cookie-secure
-    $secure = false;
+    // get ADMIN status
 
-    // This stops JavaScript being able to access the session id.
-    $httponly = true;
+    // set session vars
 
-    // Gets current cookies params.
-    $cookieParams = session_get_cookie_params();
-    session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
-
-    // Start the PHP session
-    if (!session_start()) return false;
-
-    // regenerated the session, delete the old one.
-    if (!session_regenerate_id()) return false;
+    return false;
 
   } else return false;
-
-  // check if LDAP domain
-
-  // hash pass
-
-  // get ADMIN status
-
-  // set session vars
-
-  return false;
 
 }
 
@@ -357,11 +333,47 @@ function __construct() {
 
 private function checkIfAlreadyAuthenticated() {
 
+  if (!$this->sec_session_start()) return false;
+
   if (empty($_SESSION["USER_ID"])) return false;
 
   $this->admin = !empty($_SESSION["ADMIN"]);
 
   return true;
+
+}
+
+
+private function sec_session_start() {
+
+  if (empty($_SESSION)) {
+
+    // Forces sessions to only use cookies.
+    if (ini_set('session.use_only_cookies', 1) === FALSE) {
+        trigger_error("ERROR: Could not initiate a safe session (ini_set)", E_USER_ERROR);
+    }
+
+    // Set a custom session name
+    session_name('sec_session_id');
+
+    // If TRUE cookie will only be sent over secure connections.
+    // http://php.net/manual/en/session.configuration.php#ini.session.cookie-secure
+    $secure = false;
+
+    // This stops JavaScript being able to access the session id.
+    $httponly = true;
+
+    // Gets current cookies params.
+    $cookieParams = session_get_cookie_params();
+    session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
+
+    // Start the PHP session
+    if (!session_start()) return false;
+
+    // regenerated the session, delete the old one.
+    if (!session_regenerate_id()) return false;
+
+  }
 
 }
 
