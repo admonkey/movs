@@ -82,11 +82,11 @@ CREATE TABLE `MovieXtras` (
 
 CREATE TABLE `Users` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `User` varchar(25) NOT NULL,
-  `Pass` varchar(255) NOT NULL,
-  `Fav` varchar(255) DEFAULT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `homepage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `User` (`User`)
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
