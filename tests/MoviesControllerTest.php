@@ -5,7 +5,8 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
 
     private static $rootUserID = 1;
     private static $rootUsername = 'root';
-    private static $rootUserPW = 'open';
+//     private static $rootUserPW = 'open';
+    private static $rootUserPW = '$2y$10$pcHwCUR9DcM/QLSjHH32R.OUAqYlHihv0osq8xmCluZBlG5x4fk.2';
 
     private static $sourceID = 1;
     private static $sourceData = array(
@@ -99,7 +100,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         // elevate permissions
-        $_SESSION["ADMIN"] = true;
+//         $_SESSION["ADMIN"] = true;
 
         // create object
         $theatre = new MoviesController();
@@ -123,7 +124,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         // elevate permissions
-        $_SESSION["ADMIN"] = true;
+//         $_SESSION["ADMIN"] = true;
 
         // create object
         $theatre = new MoviesController();
@@ -145,7 +146,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         // elevate permissions
-        $_SESSION["ADMIN"] = true;
+//         $_SESSION["ADMIN"] = true;
 
         // create object
         $theatre = new MoviesController();
@@ -180,7 +181,7 @@ class MoviesControllerTest extends PHPUnit_Framework_TestCase
     {
         // Arrange
         // elevate permissions
-        $_SESSION["ADMIN"] = true;
+//         $_SESSION["ADMIN"] = true;
 
         // create object
         $theatre = new MoviesController();

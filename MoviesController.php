@@ -34,6 +34,7 @@ class MoviesController {
     --
 
     __construct() MoviesController
+    sec_session_start() boolean
     checkIfAlreadyAuthenticated() boolean
     executeQuery($sql, $params = null) array, string/int, false on failure
     isPositiveNumber($num) boolean
@@ -41,10 +42,10 @@ class MoviesController {
 
 */
 
-
-private $authenticated;
-private $admin;
 private $database;
+private $authenticated;
+private $username;
+private $admin;
 
 
 //
@@ -90,7 +91,7 @@ public function login($username,$password) {
   $logged_out = !$this->authenticated;
   if (!$logged_out) $logged_out = $this->logout();
 
-  if ( $logged_out && $this->sec_session_start() ) {
+  if ($logged_out) {
 
     // check if LDAP domain
 
@@ -100,7 +101,18 @@ public function login($username,$password) {
 
     // set session vars
 
-    return false;
+    $userData = $this->executeQuery(
+      'CALL login(:username,:password)',
+      array(
+        'username'=>$username,
+        'password'=>$password
+      )
+    );
+
+    if (!empty($userData['username'])) {
+      $this->username = $userData['username'];
+      
+    }
 
   } else return false;
 
@@ -154,6 +166,8 @@ public function logout() {
 
   // Destroy session 
   return session_destroy();
+
+//   return true;
 
 }
 
@@ -337,6 +351,7 @@ private function checkIfAlreadyAuthenticated() {
 
   if (empty($_SESSION["USER_ID"])) return false;
 
+  $this->username = $_SESSION["USERNAME"];
   $this->admin = !empty($_SESSION["ADMIN"]);
 
   return true;
@@ -346,7 +361,7 @@ private function checkIfAlreadyAuthenticated() {
 
 private function sec_session_start() {
 
-  if (empty($_SESSION)) {
+  if (session_status() === PHP_SESSION_NONE) {
 
     // Forces sessions to only use cookies.
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
@@ -373,7 +388,7 @@ private function sec_session_start() {
     // regenerated the session, delete the old one.
     if (!session_regenerate_id()) return false;
 
-  }
+  } else return true;
 
 }
 
