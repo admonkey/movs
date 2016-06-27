@@ -1,4 +1,8 @@
+-- purge old procs
 DROP PROCEDURE IF EXISTS seed_database;
+
+-- current procs
+DROP PROCEDURE IF EXISTS login;
 
 DROP PROCEDURE IF EXISTS insert_source;
 DROP PROCEDURE IF EXISTS get_source;
@@ -7,6 +11,24 @@ DROP PROCEDURE IF EXISTS find_new_movies;
 DROP PROCEDURE IF EXISTS insert_movie;
 
 DELIMITER $$
+
+
+--
+-- login
+--
+CREATE PROCEDURE login (
+  IN p_username varchar(255),
+  IN p_password varchar(255)
+)
+this_procedure:BEGIN
+
+  SELECT *
+  FROM `Users`
+  WHERE `username` = p_username
+    AND `password` = p_password;
+
+END $$
+
 
 --
 -- insert source
